@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 
-import axios from "axios";
-
 import PokemonCard from "./PokemonCard";
+import Loading from "../layout/Loading";
+import axios from "axios";
 
 export default class PokemonList extends Component {
   state = {
@@ -14,9 +14,10 @@ export default class PokemonList extends Component {
     const res = await axios.get(this.state.url);
     this.setState({ pokemon: res.data["results"] });
   }
+
   render() {
     return (
-      <React.Fragment>
+      <div>
         {this.state.pokemon ? (
           <div className="row">
             {this.state.pokemon.map((pokemon) => (
@@ -28,9 +29,9 @@ export default class PokemonList extends Component {
             ))}
           </div>
         ) : (
-          <h1>Loading Pokémon...</h1>
+          <Loading />
         )}
-      </React.Fragment>
+      </div>
     );
   }
 }
